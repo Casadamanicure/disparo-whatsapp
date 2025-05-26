@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Disparo de WhatsApp</title>
+</head>
+<body>
+  <h2>Enviar lista de clientes para o Make</h2>
+  <textarea id="json" rows="20" cols="80">{
+  "contatos": [
+    {
+      "telefone": "5527999700354",
+      "nome": "Ana Claudia Soares"
+    },
+    {
+      "telefone": "5527999466261",
+      "nome": "Manicure Paula"
+    },
+    {
+      "telefone": "5527997996206",
+      "nome": "Maria da Silva"
+    }
+  ]
+}</textarea>
+  <br><br>
+  <button onclick="enviar()">Enviar</button>
+
+  <script>
+    async function enviar() {
+      try {
+        const dados = JSON.parse(document.getElementById("json").value);
+        const resposta = await fetch("https://hook.us2.make.com/a4pnzlty9c87gcgfrb9rixmwujoyljav", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados)
+        });
+        alert("Enviado! Status: " + resposta.status);
+      } catch (e) {
+        alert("Erro ao processar JSON: " + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
+
+
